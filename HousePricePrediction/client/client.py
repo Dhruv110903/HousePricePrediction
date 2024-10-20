@@ -85,11 +85,9 @@ if st.button("Predict Prices"):
             "bath": int(bathroom) if bathroom else 0,
             "bhk": int(bhk) if bhk else 0
         }
-        # if we want localhost
-        # url = "http://127.0.0.1:5000/predict_home_prices"  
-        
-        # deployed backend server
-        url="https://housepriceprediction-jj33.onrender.com/predict_home_prices"
+
+        # URL for backend server
+        url = "https://housepriceprediction-jj33.onrender.com/predict_home_prices"
 
         # Send POST request
         response = requests.post(url, data=input_data)
@@ -102,14 +100,19 @@ if st.button("Predict Prices"):
         # Handle response
         if response.status_code == 200:
             result = response.json()
-            estimated_price = int(float(result.get('Estimated Price')))
-            st.header(f'Estimated Price in Lakhs: {estimated_price}')
+            
+            # Extract and format the estimated price
+            estimated_price = float(result.get('Estimated Price'))  # Keep float for decimal precision
+            formatted_price = f"₹{estimated_price:,.2f}"  # Format with commas and two decimal points
+            
+            # Remove ".00" if not needed and add "Lakhs"
+            if formatted_price.endswith(".00"):
+                formatted_price = formatted_price[:-3]
+            
+            st.header(f'Estimated Price: {formatted_price} Lakhs')
         else:
             st.error(f"Request failed with status: {response.status_code}")
             st.error(f"Response: {response.text}")
 
     except ValueError:
         st.error("Invalid input. Please enter correct values.")
-
-
-
