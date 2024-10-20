@@ -5,7 +5,8 @@ import numpy as np
 import warnings
 import os
 
-PICKLE_PATH = "server/artifacts/home_prediction_model.pickle"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PICKLE_PATH = os.path.join(BASE_DIR, "artifacts", "home_prediction_model.pickle")
 
 
 # Global variables
