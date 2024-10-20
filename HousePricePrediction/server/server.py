@@ -3,6 +3,10 @@ import json
 import pickle
 import numpy as np
 import warnings
+import os
+
+PICKLE_PATH = "server/artifacts/home_prediction_model.pickle"
+
 
 # Global variables
 __locations = None
@@ -20,7 +24,9 @@ def load_saved_artifacts():
 
     # Load the model
     global __model
-    with open("server/artifacts/home_prediction_model.pickle", 'rb') as f:
+    os.makedirs(os.path.dirname(PICKLE_PATH), exist_ok=True)
+    with open(PICKLE_PATH, 'rb') as f:
+    # with open("server/artifacts/home_prediction_model.pickle", 'rb') as f:
         __model = pickle.load(f)
         print("Artifacts loaded successfully!")
 
