@@ -32,8 +32,11 @@ if st.button("Predict Prices"):
             "bath": int(bathroom) if bathroom else 0,
             "bhk": int(bhk) if bhk else 0
         }
-
-        url = "http://127.0.0.1:5000/predict_home_prices"
+        # if we want localhost
+        # url = "http://127.0.0.1:5000/predict_home_prices"  
+        
+        # deployed backend server
+        url="https://housepriceprediction-jj33.onrender.com/predict_home_prices"
 
         # Send POST request
         response = requests.post(url, data=input_data)
